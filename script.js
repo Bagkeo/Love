@@ -3,10 +3,16 @@ const envelope = document.getElementById("envelope");
 const lovePaper = document.getElementById("lovePaper");
 const textEl = document.getElementById("text");
 
-const loveLetter = `My dearest love,
+const loveLetter = `kim cương,
 
-Every moment, I long for you, your presence your love and everything you bring. Lets continue this loving adventure together. 
-❤️`;
+A little chest, with care aligned,
+To keep the sparkles love may find.
+But no bright stone, no polished art,
+Could hold the shine within your heart.
+For you, my love, are cut so rare,
+A diamond soul beyond compare.
+So keep this box a token small,
+Of how your light outshines it all.`;
 
 function typeLetter() {
   let index = 0;
