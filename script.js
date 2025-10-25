@@ -1,22 +1,37 @@
-* { box-sizing: border-box; }
-body, html { margin:0; padding:0; width:100%; height:100%; background:white; font-family:'Segoe UI', sans-serif; overflow:hidden; }
+const heart = document.getElementById("heart");
+const envelope = document.getElementById("envelope");
+const lovePaper = document.getElementById("lovePaper");
+const textEl = document.getElementById("text");
 
-.container { width:100%; height:100%; display:flex; justify-content:center; align-items:center; flex-direction:column; gap:20px; }
+const loveLetter = `My dearest love,
 
-/* Heart */
-.heart { position:relative; width:100px; height:90px; background:red; transform:rotate(-45deg); cursor:pointer; transition: transform 0.3s ease; z-index:10; }
-.heart::before, .heart::after { content:""; position:absolute; width:100px; height:90px; background:red; border-radius:50%; }
-.heart::before { top:-50px; left:0; } 
-.heart::after { left:50px; top:0; } 
-.heart:hover { transform:rotate(-45deg) scale(1.1); }
+Every moment, I long for you, your presence your love and everything you bring. Lets continue this loving adventure together. 
+❤️`;
 
-/* Envelope */
-.envelope { position:relative; width:260px; height:160px; background:#e74c3c; border-radius:6px; box-shadow:0 4px 10px rgba(0,0,0,0.1); overflow:hidden; opacity:0; transform:scale(0.8); transition:all 0.6s ease; z-index:5; }
-.envelope.open { opacity:1; transform:scale(1); }
-.paper { position:absolute; width:100%; height:100%; top:0; left:0; background:white; transition:top 0.8s ease; }
-.envelope.open .paper { top:-180px; }
-.flap { position:absolute; top:0; left:0; width:100%; height:100%; background:#c0392b; clip-path:polygon(0 0, 100% 0, 50% 60%); transform-origin:top; transition:transform 0.8s ease; }
+function typeLetter() {
+  let index = 0;
+  const speed = 40;
+  function type() {
+    if (index < loveLetter.length) {
+      textEl.textContent += loveLetter.charAt(index);
+      index++;
+      if (textEl.scrollHeight > lovePaper.clientHeight) {
+        let scale = lovePaper.clientHeight / textEl.scrollHeight;
+        lovePaper.style.transform = `scale(${Math.min(scale,1)})`;
+      }
+      setTimeout(type, speed);
+    }
+  }
+  type();
+}
 
-/* Pink Paper */
-.love-paper { position:relative; width:240px; min-height:160px; background:#ffc0cb; border-radius:8px; padding:20px; box-sizing:border-box; display:flex; justify-content:center; align-items:flex-start; overflow-wrap:break-word; word-wrap:break-word; font-size:20px; line-height:1.4; opacity:0; transform:scale(0.8); transition:all 0.5s ease; z-index:1; }
-.love-paper.show { opacity:1; transform:scale(1); }
+heart.addEventListener("click", () => {
+  heart.style.display = "none";
+  envelope.classList.add("open");
+  setTimeout(() => {
+    envelope.style.opacity = 0;
+    envelope.style.transform = "scale(0.8)";
+    lovePaper.classList.add("show");
+    setTimeout(typeLetter, 500);
+  }, 1200);
+});
